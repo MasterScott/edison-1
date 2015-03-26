@@ -110,6 +110,13 @@ char gDischargeFlag[3] = {"on "};
 #define BATT_CHARGE_OFFSET				10
 #endif
 
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+#define BATT_MAX_VOL_VALUE                             4145                     //Full  charge volate    
+#define BATT_ZERO_VOL_VALUE                            3500                     //power down voltage
+#define BATT_NOMAL_VOL_VALUE                         3800            
+#define BATT_CHARGE_OFFSET                              10
+#endif
+
 #ifdef CONFIG_BATTERY_BT_B0BFH
 #define BATT_MAX_VOL_VALUE                             4120               	//Full  charge volate
 #define BATT_ZERO_VOL_VALUE                            3500              	//power down voltage
@@ -165,6 +172,22 @@ static int batt_table[2*BATT_NUM+6] =
 	0x4B434F52,0x7461625F,0x79726574,0,100,100,
 	3500, 3552, 3583, 3600, 3635, 3676, 3720, 3764, 3845, 3903, 4008,  //discharge
 	3676, 3947, 3987, 4008, 4048, 4106, 4127, 4142, 4145, 4152, 4155	  //charge
+};
+#endif
+
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+static int batt_table[2*BATT_NUM+6] =
+{
+       0x4B434F52, 0x7461625F, 0x79726574, 0, 200, 200,
+       3500, 3628, 3678, 3707, 3732, 3758, 3809, 3874, 3933, 4012, 4100,       //discharge
+       3625, 3787, 3869, 3918, 3941, 3962, 3987, 4023, 4067, 4118, 4145,       //ac charge
+};
+
+static int batt_table_2[2*BATT_NUM+6] =
+{
+       0x4B434F52, 0x7461625F, 0x79726574, 0, 200, 200,
+       3500, 3576, 3624, 3652, 3668, 3720, 3809, 3874, 3933, 4012, 4100,       //discharge
+       3627, 3845, 3889, 3916, 3943, 3989, 4048, 4023, 4067, 4118, 4145,       //ac charge
 };
 #endif
 
@@ -2459,6 +2482,15 @@ static int rk30_adc_battery_probe(struct platform_device *pdev)
 		ret = -EINVAL;
 		goto err_adc_register_failed;
 	}
+
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+        if(2 == g_pmic_type)
+                g_batt_table = batt_table_2;
+        else
+                g_batt_table = batt_table;
+#else
+         g_batt_table = batt_table;
+#endif
 	    
 	 //variable init
 	data->client  = client;

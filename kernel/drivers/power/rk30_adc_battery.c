@@ -96,54 +96,93 @@ struct batt_vol_cal{
 	u32 charge_vol;
 };
 
+
+
+
+
+
+
 #ifdef CONFIG_BATTERY_RK30_VOL3V8
 
-#define BATT_MAX_VOL_VALUE                             4120               	//满电时的电池电压	 
-#define BATT_ZERO_VOL_VALUE                            3400              	//关机时的电池电压
-#define BATT_NOMAL_VOL_VALUE                         3800               
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+#define BATT_MAX_VOL_VALUE                              4159                    //<C2><FA><B5><E7>时<B5>牡<E7><B3>氐<E7>压
+#define BATT_ZERO_VOL_VALUE                             3500                    //<B9><U+063B><FA>时<B5>牡<E7><B3>氐<E7>压
+#define BATT_NOMAL_VOL_VALUE                    3800
+#define CHARGE_OFFSET                                           10
+#endif
+
+#ifdef CONFIG_BATTERY_BT_B0BFN_3474107
+#define BATT_MAX_VOL_VALUE                              4110                    //<C2><FA><B5><E7>时<B5>牡<E7><B3>氐<E7>压
+#define BATT_ZERO_VOL_VALUE                             3500                    //<B9><U+063B><FA>时<B5>牡<E7><B3>氐<E7>压
+#define BATT_NOMAL_VOL_VALUE                    3800
+#define CHARGE_OFFSET                                           10
+#endif
+
+#ifdef CONFIG_BATTERY_BT_C0B5
+#define BATT_MAX_VOL_VALUE                              4154                    //<C2><FA><B5><E7>时<B5>牡<E7><B3>氐<E7>压
+#define BATT_ZERO_VOL_VALUE                             3500                    //<B9><U+063B><FA>时<B5>牡<E7><B3>氐<E7>压
+#define BATT_NOMAL_VOL_VALUE                    3800
+#define CHARGE_OFFSET                                           10
+#endif
+
+#ifdef CONFIG_BATTERY_BT_C0B4
+#define BATT_MAX_VOL_VALUE                              4147            //<C2><FA><B5><E7>时<B5>牡<E7><B3>氐<E7>压    
+#define BATT_ZERO_VOL_VALUE                             3500            //<B9><U+063B><FA>时<B5>牡<E7><B3>氐<E7>压    
+#define BATT_NOMAL_VOL_VALUE                    3800
+#define CHARGE_OFFSET                                           0
+#endif
+
+#ifdef CONFIG_BATTERY_BT_C0B5H
+#define BATT_MAX_VOL_VALUE                             4179                     //Full  charge volate
+#define BATT_ZERO_VOL_VALUE                            3500                     //power down voltage
+#define BATT_NOMAL_VOL_VALUE                         3800
+#define BATT_CHARGE_OFFSET                              10
+#endif
+
 //divider resistance 
 #define BAT_PULL_UP_R                                         200
-#if defined(CONFIG_ARCH_RK3066B)
-#define BAT_PULL_DOWN_R                                    100
-#else
 #define BAT_PULL_DOWN_R                                    200
-#endif
-static struct batt_vol_cal  batt_table[] = {
-	{0,3400,3520},{1,3420,3525},{2,3420,3575},{3,3475,3600},{5,3505,3620},{7,3525,3644},
-	{9,3540,3662},{11,3557,3670},{13,3570,3684},{15,3580,3700},{17,3610,3715},
-	{19,3630,3720},{21,3640,3748},{23,3652,3756},{25,3662,3775},{27,3672,3790},
-	{29,3680,3810},{31,3687,3814},{33,3693,3818},{35,3699,3822},{37,3705,3825},
-	{39,3710,3830},{41,3714,3832},{43,3718,3834},{45,3722,3836},{47,3726,3837},
-	{49,3730,3839},{51,3734,3841},{53,3738,3842},{55,3742,3844},{57,3746,3844},
-	{59,3750,3855},{61,3756,3860},{63,3764,3864},{65,3774,3871},{67,3786,3890},
-	{69,3800,3910},{71,3808,3930},{73,3817,3977},{75,3827,3977},{77,3845,3997},
-	{79,3950,4030},{81,3964,4047},{83,3982,4064},{85,4002,4080},{87,4026,4096},
-	{89,4030,4132},{91,4034,4144},{93,4055,4150},{95,4085,4195},{97,4085,4195},{100,4120,4200},
+
+#ifdef CONFIG_BATTERY_BT_B0BFN_3474107
+static struct batt_vol_cal batt_table[] = {
+        {0,3500,3590},  {10,3565,3836},{20,3615,3908},{30,3642,3934},{40,3669,3957},{50,3693,3985},
+        {60,3733,4018},{70,3782,4061},{80,3838,4082},{90,3903,4097},{100,3970,4110},
 };
+#endif
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+static struct batt_vol_cal  batt_table[] = {
+        {0,3500,3525},  {10,3628,3786},{20,3678,3869},{30,3707,3918},{40,3732,3940},{50,3758,3962},
+        {60,3810,3987},{70,3874,4023},{80,3933,4067},{90,4012,4118},{100,4100,4145},
+};
+
+static struct batt_vol_cal  batt_table_2[] ={
+        {0,3500,3627},{10,3576,3845},{20,3624,3889},{30,3652,3916},{40,3668,3943},{50,3720,3989},
+        {60,3767,4048},{70,3829,4101},{80,3888,4145},{90,3975,4156},{100,4050,4159},
+};
+#endif
+#ifdef CONFIG_BATTERY_BT_C0B5
+static struct batt_vol_cal  batt_table[] ={
+        {0,3500,3650},{10,3536,3889},{20,3563,3985},{30,3587,4039},{40,3613,4092},{50,3656,4125},
+        {60,3692,4135},{70,3754,4142},{80,3817,4148},{90,3885,4150},{100,4123,4154},
+};
+#endif
+ #ifdef CONFIG_BATTERY_BT_C0B4
+static struct batt_vol_cal  batt_table[] ={
+        {0,3500,3642},{10,3512,3920},{20,3539,3960},{30,3567,3993},{40,3599,4012},{50,3643,4060},
+        {60,3684,4113},{70,3761,4122},{80,3832,4128},{90,3914,4135},{100,4088,4143},
+};
+#endif
+
+#ifdef CONFIG_BATTERY_BT_C0B5H
+static struct batt_vol_cal  batt_table[] ={
+        {0,3510,3614},{10,3571,3934},{20,3583,3974},{30,3595,3999},{40,3647,4033},{50,3676,4079},
+        {60,3730,4138},{70,3784,4171},{80,3847,4172},{90,3918,4176},{100,4130,4179},
+};
+#endif
 #else
-#define BATT_MAX_VOL_VALUE                              8284              	//Full charge voltage
-#define BATT_ZERO_VOL_VALUE                             6800            	// power down voltage 
+#define BATT_MAX_VOL_VALUE                              8284                    //Full charge voltage
+#define BATT_ZERO_VOL_VALUE                             6800                    // power down voltage 
 #define BATT_NOMAL_VOL_VALUE                          7600                
-
-//定义ADC采样分压电阻，以实际值为准，单位K
-
-#define BAT_PULL_UP_R                                         300 
-#define BAT_PULL_DOWN_R                                    100
-
-static struct batt_vol_cal  batt_table[] = {
-	{0,6800,7400},    {1,6840,7440},    {2,6880,7480},     {3,6950,7450},       {5,7010,7510},    {7,7050,7550},
-	{9,7080,7580},    {11,7104,7604},   {13,7140,7640},   {15,7160,7660},      {17,7220,7720},
-	{19,7260,7760},  {21,7280,7780},   {23,7304,7802},   {25,7324,7824},      {27,7344,7844},
-	{29,7360,7860},  {31,7374,7874},   {33,7386,7886},   {35,7398,7898},      {37,7410,7910},//500
-	{39,7420,7920},  {41,7424,7928},   {43,7436,7947},   {45,7444,7944},      {47,7450,7958}, //508
-	{49,7460,7965},  {51,7468,7975},   {53, 7476,7990},  {55,7482,8000},      {57,7492,8005}, // 5 14
-	{59,7500,8011},  {61,7510,8033},   {63,7528,8044},   {65,7548,8055},      {67,7560,8066},//506
-	{69,7600,8070},  {71,7618,8075},   {73,7634,8080},   {75,7654,8085},      {77,7690,8100}, //400
-	{79,7900,8180},  {81,7920,8210},   {83,7964,8211},   {85,8000,8214},      {87,8002,8218},//290
-	{89,8012, 8220}, {91,8022,8235},   {93,8110,8260},   {95,8140,8290},       {97,8170,8300},  {100,8200 ,8310},//110
-
-};
-#endif
 
 
 #define BATT_NUM  ARRAY_SIZE(batt_table)
@@ -422,6 +461,15 @@ static void rk30_adc_battery_voltage_samples(struct rk30_adc_battery_data *bat)
 	int i,*pStart = bat->adc_samples, num = 0;
 	int level = rk30_adc_battery_get_charge_level(bat);
 
+        struct batt_vol_cal *p;
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+        if(1 == g_pmic_type)
+                p = batt_table;
+        else if(2 == g_pmic_type)
+                p = batt_table_2;
+#else
+        p = batt_table;
+#endif
 
 	value = bat->adc_val;
 	adc_async_read(bat->client);
@@ -467,7 +515,14 @@ static int rk30_adc_battery_voltage_to_capacity(struct rk30_adc_battery_data *ba
 	int capacity = 0;
 
 	struct batt_vol_cal *p;
-	p = batt_table;
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+        if(1 == g_pmic_type)
+                p = batt_table;
+        else if(2 == g_pmic_type)
+                p = batt_table_2;
+#else
+        p = batt_table;
+#endif
 
 	if (rk30_adc_battery_get_charge_level(bat)){  //charge
 		if(BatVoltage >= (p[BATT_NUM - 1].charge_vol)){
@@ -1134,6 +1189,15 @@ static void rk30_adc_battery_check(struct rk30_adc_battery_data *bat)
 	struct rk30_adc_battery_platform_data *pdata = bat->pdata;
 	//printk("%s--%d:\n",__FUNCTION__,__LINE__);
 
+	struct batt_vol_cal *p;
+#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
+        if(1 == g_pmic_type)
+                p = batt_table;
+        else if(2 == g_pmic_type)
+                p = batt_table_2;
+#else
+        p = batt_table;
+#endif
 	bat->old_charge_level = -1;
 	bat->capacitytmp = 0;
 	bat->suspend_capacity = 0;
