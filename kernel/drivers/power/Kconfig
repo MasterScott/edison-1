@@ -399,6 +399,9 @@ choice
 	prompt "Support battery type"
 	default BATTERY_BT_B0BFN_3474107
 
+config BATTERY_BT_B0BDN_3574108
+        bool "BT-BOBDN 3474108 6400mA"
+
 config BATTERY_BT_B0BFN_3474107
        bool "BT-BOBFN 3474107 4200mA"
 
