@@ -2483,14 +2483,6 @@ static int rk30_adc_battery_probe(struct platform_device *pdev)
 		goto err_adc_register_failed;
 	}
 
-#ifdef CONFIG_BATTERY_BT_B0BDN_3574108
-        if(2 == g_pmic_type)
-                g_batt_table = batt_table_2;
-        else
-                g_batt_table = batt_table;
-#else
-         g_batt_table = batt_table;
-#endif
 	    
 	 //variable init
 	data->client  = client;
